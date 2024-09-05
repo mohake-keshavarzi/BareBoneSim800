@@ -34,7 +34,7 @@
 #include "AltSoftSerial.h"
 #include "config/AltSoftSerial_Boards.h"
 #include "config/AltSoftSerial_Timers.h"
-
+#ifndef UNKNOWN_BOARD
 /****************************************/
 /**          Initialization            **/
 /****************************************/
@@ -346,5 +346,6 @@ void ftm0_isr(void)
 	if (flags & (1<<5)) altss_capture_interrupt();
 	if (flags & (1<<6) && (FTM0_C6SC & 0x40)) altss_compare_a_interrupt();
 }
+#endif
 #endif
 

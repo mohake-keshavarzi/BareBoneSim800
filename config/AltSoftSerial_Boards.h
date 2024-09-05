@@ -143,5 +143,6 @@
 
 // Unknown board
 #else
-#error "Please define your board timer and pins"
+#define UNKNOWN_BOARD
+#warning "The board is unidentified. You can not use the AltSoftSerial library unless you define your board timer and pins."
 #endif
