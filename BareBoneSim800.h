@@ -131,7 +131,8 @@
 	 bool checkNewSMS(); //checks for new sms
 	 bool dellAllSMS(); // deletes all sms 
 	 
-	 String getTime(); // return time of the network
+	 
+	 String getTime(); // return time from LTS (Local Time Stamp)
 	 String getLocation(); //return location of device
 	 byte getBattPercent(); //returns the battery level in percentage
 	 float getBattVoltage(); //returns the battery level in percentage
