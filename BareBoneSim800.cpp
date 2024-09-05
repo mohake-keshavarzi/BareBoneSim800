@@ -398,15 +398,20 @@ bool BareBoneSim800::dellAllSMS(){
 		return false;
 }
 
+
+
+
 String BareBoneSim800::getTime(){
 	// This function is for get time & date from the LTS (Local Time Stamp)
+	gsmSerial.print(F("AT+CLTS?\r\n")); // save this configuration
+	byte result = _checkResponse(1000);
 	gsmSerial.print(F("AT+CCLK?\r\n"));
 	String _buffer = _readData();
 	
 	delay(100);
 	if (_buffer.indexOf("OK") != -1){ // here we should fetch the result only if we get "OK" and not error
 		_buffer= _buffer.substring(_buffer.indexOf("\"")+1);
-		return _buffer.substring(0,_buffer.indexOf("\"")-1);
+		return _buffer.substring(0,_buffer.indexOf("\""));
 	}
 	else
 		return "0";
