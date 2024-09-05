@@ -399,7 +399,31 @@ bool BareBoneSim800::dellAllSMS(){
 }
 
 
-
+bool BareBoneSim800::enableLTS(bool enable){
+	//This function enables or disables retrieving date and time using the available local network
+	//Function will save this configuration.
+	//If LTS enabled, after each boot up the date and time will be updated
+	//Also enabling LTS, also enables the following Unsolicited Result Code messages: 
+	//*PSNWID  Refresh network name by network
+	//*PSUTTZ  Refresh time and time zone by network
+	//+CTZV Refresh network time zone by network
+	//DST Refresh Network Daylight Saving Time by network
+	if(enable)
+		gsmSerial.print(F("AT+CLTS=1\r\n"));
+	else{
+		gsmSerial.print(F("AT+CLTS=0\r\n"));
+	}
+	byte result = _checkResponse(1000);
+	if(result!=OK) return false;
+	gsmSerial.print(F("AT&W\r\n")); // save this configuration
+	result = _checkResponse(1000);
+	if(result!=OK) return false;
+	gsmSerial.print(F("AT+CFUN=1,1\r\n")); //reset the modem
+	result = _checkResponse(1000);
+	if(result!=OK) return false;
+	
+	return true;
+}
 
 String BareBoneSim800::getTime(){
 	// This function is for get time & date from the LTS (Local Time Stamp)

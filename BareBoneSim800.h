@@ -68,7 +68,7 @@
 #define READY_TO_RECEIVE 10 // basically SMSGOOD means >
 #define OK 11
 
-#define DEBUG 0 //This enables debugging mode, to disable it - set value to 0
+#define DEBUG 1 //This enables debugging mode, to disable it - set value to 0
 
 
  
@@ -132,7 +132,8 @@
 	 bool dellAllSMS(); // deletes all sms 
 	 
 	 
-	 String getTime(); // return time from LTS (Local Time Stamp)
+	 bool enableLTS(bool enable=true); //Enables or disables receiving data from LTS and saves this configuration 
+	 String getTime(); // return time from LTS (Local Time Stamp) [didn't work for me. possibly due to a problem from my Sim card operator company]
 	 String getLocation(); //return location of device
 	 byte getBattPercent(); //returns the battery level in percentage
 	 float getBattVoltage(); //returns the battery level in percentage
