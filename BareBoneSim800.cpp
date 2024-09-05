@@ -403,7 +403,6 @@ bool BareBoneSim800::dellAllSMS(){
 
 String BareBoneSim800::getTime(){
 	// This function is for get time & date from the LTS (Local Time Stamp)
-	gsmSerial.print(F("AT+CLTS?\r\n")); // save this configuration
 	byte result = _checkResponse(1000);
 	gsmSerial.print(F("AT+CCLK?\r\n"));
 	String _buffer = _readData();
