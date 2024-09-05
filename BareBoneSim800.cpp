@@ -35,31 +35,25 @@
  *
 */
  
-
- #include "Arduino.h"
- #include "AltSoftSerial.h"
  #include "BareBoneSim800.h"
  
  // Initialize the constructors
- BareBoneSim800::BareBoneSim800()
+ BareBoneSim800::BareBoneSim800(Stream& serial):gsmSerial(serial)
  {
  }
  
- BareBoneSim800::BareBoneSim800(const char* networkAPN){
+ BareBoneSim800::BareBoneSim800(Stream& serial,const char* networkAPN):gsmSerial(serial){
 	 _networkAPN = networkAPN;
 	 _userName = "";
 	 _passWord = "";
  }
  
- BareBoneSim800::BareBoneSim800(const char* networkAPN, const char* userName, const char* passWord){
+ BareBoneSim800::BareBoneSim800(Stream& serial,const char* networkAPN, const char* userName, const char* passWord):gsmSerial(serial){
 	 _networkAPN = networkAPN;
 	 _userName = userName;
 	 _passWord = passWord;
  }
 
-AltSoftSerial gsmSerial;
- 
- 
  // 
  // PRIVATE METHODS
  //
@@ -212,7 +206,6 @@ void BareBoneSim800::_disableBearerProfile(){
  
  //PUBLIC METHODS
   void BareBoneSim800::begin(){
-	 gsmSerial.begin(9600);	 	 
 	 // I should clear the buffer just incase
 	 //_flushSerial(1000);
 	 byte result = _checkResponse(1000); // this will flush the serial

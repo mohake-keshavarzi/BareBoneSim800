@@ -47,8 +47,7 @@
  
  #ifndef BareBoneSim800_h
  #define BareBoneSim800_h
- 
- #include "AltSoftSerial.h"
+ #include "Stream.h"
  #include "Arduino.h"
  
  #define RX_PIN 8		//not needed since the AltSoftSerial has already define it inside
@@ -108,10 +107,10 @@
 	   
 
 	 public:
-	 
-	 BareBoneSim800();
-	 BareBoneSim800(const char* networkAPN);
-	 BareBoneSim800(const char* networkAPN, const char* userName, const char* passWord);
+ 	 Stream& gsmSerial;
+	 BareBoneSim800(Stream& serial);
+	 BareBoneSim800(Stream& serial,const char* networkAPN);
+	 BareBoneSim800(Stream& serial,const char* networkAPN, const char* userName, const char* passWord);
 	 
 	 volatile int previousMessageIndex = 0; //stores the last read message index
 	 volatile int currentMessageIndex = 0; //stores the latest message index
