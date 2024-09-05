@@ -399,19 +399,14 @@ bool BareBoneSim800::dellAllSMS(){
 }
 
 String BareBoneSim800::getTime(){
-	// This function is for get time & date from the network
-	// first enable the bearer profile
-	_enableBearerProfile();
-	gsmSerial.print(F("AT+CIPGSMLOC=2,1\r\n"));
+	// This function is for get time & date from the LTS (Local Time Stamp)
+	gsmSerial.print(F("AT+CCLK?\r\n"));
 	String _buffer = _readData();
-	//Serial.println("sasd");
-	delay(10);
-	_buffer = _readData(); // This second read should work out
-	// here we disbale the bearer profile back
+	
 	delay(100);
-	_disableBearerProfile();
-	if (_buffer.indexOf("0,") != -1){ // here we should fetch the result only if we get 0 and not error or some other numbers
-		return _buffer.substring(_buffer.indexOf("0,"),(_buffer.indexOf("OK")-4));
+	if (_buffer.indexOf("OK") != -1){ // here we should fetch the result only if we get "OK" and not error
+		_buffer= _buffer.substring(_buffer.indexOf("\"")+1);
+		return _buffer.substring(0,_buffer.indexOf("\"")-1);
 	}
 	else
 		return "0";
