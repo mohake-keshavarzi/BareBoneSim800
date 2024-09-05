@@ -134,6 +134,7 @@
 	 String getTime(); // return time of the network
 	 String getLocation(); //return location of device
 	 byte getBattPercent(); //returns the battery level in percentage
+	 float getBattVoltage(); //returns the battery level in percentage
 	 
 	 // GPRS Connectivity
 	 bool gprsConnect();

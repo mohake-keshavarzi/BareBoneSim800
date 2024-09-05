@@ -447,6 +447,16 @@ byte BareBoneSim800::getBattPercent(){
 	return buffer2.substring(0, buffer2.indexOf(",")).toInt(); // converts the result to interger
 }
 
+float BareBoneSim800::getBattVoltage(){
+	//This function is use for getting battery voltage
+	//It will return a float value typically between 2.800 to 4.208
+	//+CBC: 0,100,4208
+	gsmSerial.print(F("AT+CBC\r\n"));
+	String _buffer = _readData();
+	_buffer = _buffer.substring(_buffer.indexOf(",")+1);
+	return _buffer.substring(_buffer.indexOf(",")+1,_buffer.indexOf("OK")-4).toFloat()/1000.0f; // converts the result to float 
+}
+
 /*/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 This Section Focuses on the GPRS connectivitiy
 */
