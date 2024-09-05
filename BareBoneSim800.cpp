@@ -450,6 +450,7 @@ byte BareBoneSim800::getBattPercent(){
 float BareBoneSim800::getBattVoltage(){
 	//This function is use for getting battery voltage
 	//It will return a float value typically between 2.800 to 4.208
+	//If the function fails returns 0 
 	//+CBC: 0,100,4208
 	gsmSerial.print(F("AT+CBC\r\n"));
 	String _buffer = _readData();
